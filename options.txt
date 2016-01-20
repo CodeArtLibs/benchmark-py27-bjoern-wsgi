@@ -1,0 +1,12 @@
+[
+    {
+        "Namespace": "aws:autoscaling:launchconfiguration",
+        "OptionName": "InstanceType",
+        "Value": "m3.xlarge"
+    },
+    {
+        "Namespace": "aws:autoscaling:launchconfiguration",
+        "OptionName": "ImageId",
+        "Value": "ami-b2e3c6d8"
+    }
+]

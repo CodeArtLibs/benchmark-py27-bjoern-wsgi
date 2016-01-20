@@ -1,6 +1,8 @@
 IP=`boot2docker ip`
 CONTAINER_ID=`docker ps -q`
 
+# Native
+
 bootstrap:
 	virtualenv env -p python
 
@@ -21,6 +23,7 @@ stop:
 	supervisorctl stop
 	supervisorctl shutdown
 
+# Docker -> Native
 
 build:
 	docker build --tag codeart-benchmarks/benchmark-py27-bjoern-wsgi:v1 .
@@ -43,4 +46,39 @@ ps:
 	boot2docker ip
 	docker ps
 
-deploy:
+# ELB Local -> Docker -> Native
+
+eb_local_bootstrap:
+	eb init
+
+eb_local_run:
+	eb local run --port 8000
+
+eb_local_status:
+	eb local status
+
+eb_local_browser:
+	eb local open
+
+# ELB Production -> Docker -> Native
+
+eb_deploy:
+	eb create prod --single --service-role prod
+	eb deploy prod
+	aws elasticbeanstalk update-environment --environment-name prod --region us-east-1 --option-settings file://./options.txt
+	eb status prod
+	eb open prod
+
+eb_browser:
+	eb open prod
+
+eb_status:
+	eb status prod
+
+eb_log:
+	eb events prod
+	eb logs prod
+
+eb_terminate:
+	eb terminate prod
+	eb status prod
