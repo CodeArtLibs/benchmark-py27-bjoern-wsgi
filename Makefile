@@ -1,4 +1,5 @@
 IP=`boot2docker ip`
+CONTAINER_ID=`docker ps -q`
 
 bootstrap:
 	virtualenv env -p python
@@ -20,6 +21,7 @@ stop:
 	supervisorctl stop
 	supervisorctl shutdown
 
+
 build:
 	docker build --tag codeart-benchmarks/benchmark-py27-bjoern-wsgi:v1 .
 	docker images
@@ -29,7 +31,13 @@ browser:
 
 run: browser
 	docker run -i -p 8001:8000 codeart-benchmarks/benchmark-py27-bjoern-wsgi:v1
-	docker ps
+	docker ps -l
+
+dstatus:
+	docker exec ${CONTAINER_ID} supervisorctl status
+
+port:
+	docker port ${CONTAINER_ID}
 
 ps:
 	boot2docker ip
