@@ -56,8 +56,7 @@ WORKDIR /src
 RUN virtualenv env -p python
 RUN env/bin/pip install -r requirements.txt
 
-# CMD ["supervisord", "-z", "0", "-c", "/src/supervisord.conf"]
-CMD ["/src/env/bin/python", "-OO", "/src/run.py"]
+CMD ["supervisord", "-z", "0", "-c", "/src/supervisord.conf"]
 
 ###############################################################################
 # Information
