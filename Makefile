@@ -33,7 +33,7 @@ browser:
 	open "http://${IP}:8001"
 
 run: browser
-	docker run -i -p 8001:8000 codeart-benchmarks/benchmark-py27-bjoern-wsgi:v1
+	docker run -i -p 8001:8000 -e WORKERS=5 -e KEEP_ALIVE=120 -e PORT=8000 codeart-benchmarks/benchmark-py27-bjoern-wsgi:v1
 	docker ps -l
 
 dstatus:
